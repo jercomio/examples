@@ -1,0 +1,33 @@
+/* JRC Logo */
+
+.jrc-logo-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.jrc-logo-box:hover {
+    cursor: pointer;
+}
+
+.jrc_logo {
+    width: 300px;
+    height: auto;
+    /* filter: grayscale(1); */
+}
+.jrc_section-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    background: var(--bg-main);
+    color: var(--gray-md);
+}
+
+@media screen and (max-width: 768px) {
+    .jrc_logo {
+        width: 250px;
+    }
+}

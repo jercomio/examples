@@ -1,0 +1,16 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "tailwindCSS.lint.invalidApply": "error",
+  "tailwindCSS.lint.invalidTailwindDirective": "error",
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.lint.invalidScreen": "error",
+  "tailwindCSS.lint.invalidVariant": "ignore",
+  "intelephense.files.associations": [
+    "*.php",
+    "*.phtml"
+  ],
+  "tailwindCSS.experimental.configFile": null,
+  "tailwindCSS.validate": false,
+  "css.lint.unknownAtRules": "ignore"
+}

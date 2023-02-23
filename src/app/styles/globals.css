@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Settings */
+
+/* FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital@0;1&family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
+
+
+.screen-bg {
+    @apply bg-slate-200
+}
+.settings {
+    @apply scroll-smooth font-main
+}
+.center {
+    @apply max-w-screen-xl w-full my-0 mx-auto relative
+}
+
+/* Variables */
+:root {
+    --nbase: 100;
+    --ng: calc((1 + math.sqrt(5)) / 2);
+}
+/* Colors */
+:root {
+    --bg-main: rgba(15, 23, 42, 1);
+    --black: #020202;
+    --dark: #020303;
+    --gray-hard: #1c251f;
+    --gray-dark: #807b7d;
+    --gray-n: #908c8a;
+    --gray-md: #b9aeaa;
+    --gray-l: #b8aea9;
+    --gray-myst: #2b3839;
+}
+
+/* IMPORTS */
+@import '../../components/components.css';

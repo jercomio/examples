@@ -1,0 +1,42 @@
+/* Card Component Style */
+
+:root {
+    --mx-w: 700;
+    --mobileWidthValue: 95;
+}
+
+.card-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    margin: 0 auto;
+}
+.margin-center {
+    @apply mt-0 mb-0 ml-auto mr-auto
+}
+.flex-content {
+    @apply 
+    flex 
+    flex-col
+    justify-start 
+    items-start
+}
+.card-dimension {
+    border: 1px solid rgb(100 116 139);
+    max-width: calc(var(--mx-w) * 1px);
+    width: calc(var(--mx-w) * 1px);
+    height: calc((var(--mx-w) / var(--ng)) * 1px);
+}
+
+.title-card {
+    @apply text-slate-200
+}
+
+
+@media screen and (max-width: 768px) {
+    .card-dimension {
+        max-width: calc(var(--mobileWidthValue) * 1vw);
+        height: calc((var(--mobileWidthValue) / var(--ng)) * 1vh);
+    }
+}
