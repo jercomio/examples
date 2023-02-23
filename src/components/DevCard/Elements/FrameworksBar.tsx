@@ -1,7 +1,7 @@
 'use client'
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import react from "../../../../public/assets/frameworks/react.svg";
 import nextjs from "../../../../public/assets/frameworks/nextjs.svg";
 import redux from "../../../../public/assets/frameworks/redux.svg";
@@ -10,23 +10,37 @@ import strapi from "../../../../public/assets/frameworks/strapi.svg";
 
 const FrameworksBar = () => {
   const [mouseOver, setMouseOver] = useState(false);
+  const tabRef = useRef<HTMLElement>(null);
+  const tabBarRef = useRef<HTMLDivElement>(null);
+  const linksTargetRef = useRef<HTMLAnchorElement>(null);
 
-  const tabBar = document.querySelector(".tab-bar");
-  const tab = document.getElementById("tab");
-  const linksTarget = document.querySelectorAll("a");
+  // const tabBar = document.querySelector(".tab-bar");
+  // const tab = document.getElementById("tab");
+  // const linksTarget = document.querySelectorAll("a");
   //  Circle diameter of tab element
-  const d = 30;
+  const d: number = 30;
 
   const onTab = useCallback((mouseOver:boolean) => {
-    if (mouseOver === true) {
-    if (linksTarget !== null && tab !== null && tabBar !== null) {
-      // Return the position of tabBar element relative to the viewport.
-      const tabBarX = tabBar.getBoundingClientRect();
+    const tabBar = tabBarRef.current;
+    const tab = tabRef.current;
+    const linksTarget = linksTargetRef.current;
 
-      linksTarget.forEach((link: HTMLAnchorElement) => {
+    
+    if (mouseOver === true) {
+      if (linksTarget !== null && tab !== null && tabBar !== null) {
+      const tabBarNode = tabBar.querySelector<HTMLDivElement>(".tab-bar");
+      const tabNode = tab.querySelector<HTMLElement>("tab");
+      const linksTargetNode = linksTarget.querySelectorAll<HTMLAnchorElement>("a");
+
+      // Return the position of tabBar element relative to the viewport.
+
+      linksTargetNode.forEach((link: HTMLAnchorElement) => {
         const mousemoveHandler = (event: MouseEvent) => {
+          if (tabNode !== null && tabBarNode !== null) {
+            const tabBarX = tabBarNode.getBoundingClientRect();
+            tabNode.style.translate = `${event.clientX - tabBarX.x - d / 2}px 0px`;
+          }
           // Translate tab relative to cursor position and tabBar position
-          tab.style.translate = `${event.clientX - tabBarX.x - d / 2}px 0px`;
         };
         link.addEventListener("mouseover", (event: MouseEvent) => {
           tab.classList.add("tab-highlight");
@@ -51,7 +65,7 @@ const FrameworksBar = () => {
         // removeEventListener("mousemove", onTab);
       }
     }
-  }, [linksTarget, tab, tabBar]);
+  }, [linksTargetRef, tabRef, tabBarRef]);
 
   useEffect(() => {
     onTab(mouseOver)
@@ -60,10 +74,11 @@ const FrameworksBar = () => {
   return (
     <>
       <div className="relative fw-icons flex flex-nowrap gap-px m-2.5">
-        <div aria-hidden="true" className="tab-bar submenu-tabs-highlight">
-          <span id="tab"></span>
+        <div ref={tabBarRef} aria-hidden="true" className="tab-bar submenu-tabs-highlight">
+          <span id="tab" className="tab" ref={tabRef}></span>
         </div>
         <Link
+          ref={linksTargetRef}
           href={`https://reactjs.org/`}
           className="link"
           onMouseOver={() => setMouseOver(true)}
@@ -74,6 +89,7 @@ const FrameworksBar = () => {
           <Image src={react} width={18} height={18} alt="react" />
         </Link>
         <Link
+          ref={linksTargetRef}
           href={`https://nextjs.org/`}
           className="link"
           onMouseOver={() => setMouseOver(true)}
@@ -84,6 +100,7 @@ const FrameworksBar = () => {
           <Image src={nextjs} width={18} height={18} alt="nextjs" />
         </Link>
         <Link
+          ref={linksTargetRef}
           href={`https://redux.js.org/`}
           className="link"
           onMouseOver={() => setMouseOver(true)}
@@ -94,6 +111,7 @@ const FrameworksBar = () => {
           <Image src={redux} width={18} height={18} alt="redux" />
         </Link>
         <Link
+          ref={linksTargetRef}
           href={`https://www.apollographql.com/`}
           className="link"
           onMouseOver={() => setMouseOver(true)}
@@ -104,6 +122,7 @@ const FrameworksBar = () => {
           <Image src={apollo} width={18} height={18} alt="apollo" />
         </Link>
         <Link
+          ref={linksTargetRef}
           href={`https://strapi.io/`}
           className="link"
           onMouseOver={() => setMouseOver(true)}
