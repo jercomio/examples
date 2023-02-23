@@ -28,26 +28,21 @@ const FrameworksBar = () => {
     
     if (mouseOver === true) {
       if (linksTarget !== null && tab !== null && tabBar !== null) {
-      const tabBarNode = tabBar.querySelector<HTMLDivElement>(".tab-bar");
-      const tabNode = tab.querySelector<HTMLElement>("tab");
-      const linksTargetNode = linksTarget.querySelectorAll<HTMLAnchorElement>("a");
 
       // Return the position of tabBar element relative to the viewport.
+      const tabBarX = tabBar.getBoundingClientRect();
 
-      linksTargetNode.forEach((link: HTMLAnchorElement) => {
+      // linksTarget.forEach((link: HTMLElement) => {
         const mousemoveHandler = (event: MouseEvent) => {
-          if (tabNode !== null && tabBarNode !== null) {
-            const tabBarX = tabBarNode.getBoundingClientRect();
-            tabNode.style.translate = `${event.clientX - tabBarX.x - d / 2}px 0px`;
-          }
           // Translate tab relative to cursor position and tabBar position
+            tab.style.translate = `${event.clientX - tabBarX.x - d / 2}px 0px`;
         };
-        link.addEventListener("mouseover", (event: MouseEvent) => {
+        linksTarget.addEventListener("mouseover", (event: MouseEvent) => {
           tab.classList.add("tab-highlight");
           tab.style.willChange = "translate";
-          link.addEventListener("mousemove", mousemoveHandler);
+          linksTarget.addEventListener("mousemove", mousemoveHandler);
 
-          link.addEventListener("mouseout", (event: MouseEvent) => {
+          linksTarget.addEventListener("mouseout", (event: MouseEvent) => {
             tab.style.willChange = "";
             tab.style.translate = "";
             tab.removeAttribute("style");
@@ -55,7 +50,7 @@ const FrameworksBar = () => {
             tab.removeEventListener("mousemove", mousemoveHandler);
           });
         });
-      });
+      // });
     }
       
     } else {
@@ -65,7 +60,7 @@ const FrameworksBar = () => {
         // removeEventListener("mousemove", onTab);
       }
     }
-  }, [linksTargetRef, tabRef, tabBarRef]);
+  }, [mouseOver]);
 
   useEffect(() => {
     onTab(mouseOver)
@@ -75,7 +70,7 @@ const FrameworksBar = () => {
     <>
       <div className="relative fw-icons flex flex-nowrap gap-px m-2.5">
         <div ref={tabBarRef} aria-hidden="true" className="tab-bar submenu-tabs-highlight">
-          <span id="tab" className="tab" ref={tabRef}></span>
+          <span ref={tabRef} id="tab" className="tab"></span>
         </div>
         <Link
           ref={linksTargetRef}

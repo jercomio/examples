@@ -15,29 +15,29 @@ const JrcLogo = () => {
 
   const displayChild = useCallback((visible:boolean) => {
     if (child !== null) {
-      const childNode = child.querySelector<HTMLElement>(".child");
+      // const childNode = child.querySelector<HTMLElement>(".child");
       if (visible) {
-        if (childNode !== null) {
-          childNode.style.display = "block";
-          childNode.style.opacity = '0';
-          childNode.style.transition = 'all 0.7s ease';
+        if (child !== null) {
+          child.style.display = "block";
+          child.style.opacity = '0';
+          child.style.transition = 'all 0.7s ease';
           setTimeout(() => {
-            childNode.style.opacity = '1';
+            child.style.opacity = '1';
           }, 0)
         }
         
       } else {
-        if (childNode !== null) {
-          childNode.style.transition = 'all 0.7s ease';
-          childNode.style.opacity = '0';
+        if (child !== null) {
+          child.style.transition = 'all 0.7s ease';
+          child.style.opacity = '0';
           setTimeout(() => {
-            childNode.style.display = "none";
+            child.style.display = "none";
           }, 700)
           setVisible(false);
         }
       }
     }
-  }, [childRef]);
+  }, [child]);
 
   useEffect(() => {
     displayChild(visible)
