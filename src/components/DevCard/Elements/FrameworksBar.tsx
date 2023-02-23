@@ -12,7 +12,7 @@ const FrameworksBar = () => {
   const [mouseOver, setMouseOver] = useState(false);
   const tabRef = useRef<HTMLElement>(null);
   const tabBarRef = useRef<HTMLDivElement>(null);
-  const linksTargetRef = useRef<HTMLAnchorElement>(null);
+  const linksTargetRef = useRef<HTMLDivElement>(null);
 
   // const tabBar = document.querySelector(".tab-bar");
   // const tab = document.getElementById("tab");
@@ -25,24 +25,26 @@ const FrameworksBar = () => {
     const tab = tabRef.current;
     const linksTarget = linksTargetRef.current;
 
-    
-    if (mouseOver === true) {
-      if (linksTarget !== null && tab !== null && tabBar !== null) {
+    if (mouseOver === true && linksTarget !== null) {
+      const linkTargetNode = linksTarget.querySelectorAll('a');
+      console.log(linkTargetNode);
+      
+      if (linkTargetNode !== null && tab !== null && tabBar !== null) {
 
       // Return the position of tabBar element relative to the viewport.
       const tabBarX = tabBar.getBoundingClientRect();
 
-      // linksTarget.forEach((link: HTMLElement) => {
+      linkTargetNode.forEach((link: HTMLElement) => {
         const mousemoveHandler = (event: MouseEvent) => {
           // Translate tab relative to cursor position and tabBar position
             tab.style.translate = `${event.clientX - tabBarX.x - d / 2}px 0px`;
         };
-        linksTarget.addEventListener("mouseover", (event: MouseEvent) => {
+        link.addEventListener("mouseover", (event: MouseEvent) => {
           tab.classList.add("tab-highlight");
           tab.style.willChange = "translate";
-          linksTarget.addEventListener("mousemove", mousemoveHandler);
+          link.addEventListener("mousemove", mousemoveHandler);
 
-          linksTarget.addEventListener("mouseout", (event: MouseEvent) => {
+          link.addEventListener("mouseout", (event: MouseEvent) => {
             tab.style.willChange = "";
             tab.style.translate = "";
             tab.removeAttribute("style");
@@ -50,7 +52,7 @@ const FrameworksBar = () => {
             tab.removeEventListener("mousemove", mousemoveHandler);
           });
         });
-      // });
+      });
     }
       
     } else {
@@ -72,61 +74,63 @@ const FrameworksBar = () => {
         <div ref={tabBarRef} aria-hidden="true" className="tab-bar submenu-tabs-highlight">
           <span ref={tabRef} id="tab" className="tab"></span>
         </div>
-        <Link
-          ref={linksTargetRef}
-          href={`https://reactjs.org/`}
-          className="link"
-          onMouseOver={() => setMouseOver(true)}
-          onMouseOut={() => setMouseOver(false)}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image src={react} width={18} height={18} alt="react" />
-        </Link>
-        <Link
-          ref={linksTargetRef}
-          href={`https://nextjs.org/`}
-          className="link"
-          onMouseOver={() => setMouseOver(true)}
-          onMouseOut={() => setMouseOver(false)}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image src={nextjs} width={18} height={18} alt="nextjs" />
-        </Link>
-        <Link
-          ref={linksTargetRef}
-          href={`https://redux.js.org/`}
-          className="link"
-          onMouseOver={() => setMouseOver(true)}
-          onMouseOut={() => setMouseOver(false)}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image src={redux} width={18} height={18} alt="redux" />
-        </Link>
-        <Link
-          ref={linksTargetRef}
-          href={`https://www.apollographql.com/`}
-          className="link"
-          onMouseOver={() => setMouseOver(true)}
-          onMouseOut={() => setMouseOver(false)}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image src={apollo} width={18} height={18} alt="apollo" />
-        </Link>
-        <Link
-          ref={linksTargetRef}
-          href={`https://strapi.io/`}
-          className="link"
-          onMouseOver={() => setMouseOver(true)}
-          onMouseOut={() => setMouseOver(false)}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image src={strapi} width={18} height={18} alt="strapi" />
-        </Link>
+        <div ref={linksTargetRef} className="flex gap-px">
+          <Link
+            
+            href={`https://reactjs.org/`}
+            className="link"
+            onMouseOver={() => setMouseOver(true)}
+            onMouseOut={() => setMouseOver(false)}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image src={react} width={18} height={18} alt="react" />
+          </Link>
+          <Link
+            
+            href={`https://nextjs.org/`}
+            className="link"
+            onMouseOver={() => setMouseOver(true)}
+            onMouseOut={() => setMouseOver(false)}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image src={nextjs} width={18} height={18} alt="nextjs" />
+          </Link>
+          <Link
+            
+            href={`https://redux.js.org/`}
+            className="link"
+            onMouseOver={() => setMouseOver(true)}
+            onMouseOut={() => setMouseOver(false)}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image src={redux} width={18} height={18} alt="redux" />
+          </Link>
+          <Link
+            
+            href={`https://www.apollographql.com/`}
+            className="link"
+            onMouseOver={() => setMouseOver(true)}
+            onMouseOut={() => setMouseOver(false)}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image src={apollo} width={18} height={18} alt="apollo" />
+          </Link>
+          <Link
+            
+            href={`https://strapi.io/`}
+            className="link"
+            onMouseOver={() => setMouseOver(true)}
+            onMouseOut={() => setMouseOver(false)}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image src={strapi} width={18} height={18} alt="strapi" />
+          </Link>
+        </div>
       </div>
     </>
   );
