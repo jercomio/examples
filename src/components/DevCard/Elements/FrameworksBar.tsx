@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useCallback, useRef } from "react";
@@ -14,69 +14,71 @@ const FrameworksBar = () => {
   const tabBarRef = useRef<HTMLDivElement>(null);
   const linksTargetRef = useRef<HTMLDivElement>(null);
 
-  // const tabBar = document.querySelector(".tab-bar");
-  // const tab = document.getElementById("tab");
-  // const linksTarget = document.querySelectorAll("a");
   //  Circle diameter of tab element
   const d: number = 30;
 
-  const onTab = useCallback((mouseOver:boolean) => {
-    const tabBar = tabBarRef.current;
-    const tab = tabRef.current;
-    const linksTarget = linksTargetRef.current;
+  const onTab = useCallback(
+    (mouseOver: boolean) => {
+      const tabBar = tabBarRef.current;
+      const tab = tabRef.current;
+      const linksTarget = linksTargetRef.current;
 
-    if (mouseOver === true && linksTarget !== null) {
-      const linkTargetNode = linksTarget.querySelectorAll('a');
-      console.log(linkTargetNode);
-      
-      if (linkTargetNode !== null && tab !== null && tabBar !== null) {
+      if (mouseOver === true && linksTarget !== null) {
+        const linkTargetNode = linksTarget.querySelectorAll("a");
 
-      // Return the position of tabBar element relative to the viewport.
-      const tabBarX = tabBar.getBoundingClientRect();
+        if (linkTargetNode !== null && tab !== null && tabBar !== null) {
+          // Return the position of tabBar element relative to the viewport.
+          const tabBarX = tabBar.getBoundingClientRect();
 
-      linkTargetNode.forEach((link: HTMLElement) => {
-        const mousemoveHandler = (event: MouseEvent) => {
-          // Translate tab relative to cursor position and tabBar position
-            tab.style.translate = `${event.clientX - tabBarX.x - d / 2}px 0px`;
-        };
-        link.addEventListener("mouseover", (event: MouseEvent) => {
-          tab.classList.add("tab-highlight");
-          tab.style.willChange = "translate";
-          link.addEventListener("mousemove", mousemoveHandler);
+          linkTargetNode.forEach((link: HTMLElement) => {
+            const mousemoveHandler = (event: MouseEvent) => {
+              // Translate tab relative to cursor position and tabBar position
+              tab.style.translate = `${
+                event.clientX - tabBarX.x - d / 2
+              }px 0px`;
+            };
+            link.addEventListener("mouseover", (event: MouseEvent) => {
+              tab.classList.add("tab-highlight");
+              tab.style.willChange = "translate";
+              link.addEventListener("mousemove", mousemoveHandler);
 
-          link.addEventListener("mouseout", (event: MouseEvent) => {
-            tab.style.willChange = "";
-            tab.style.translate = "";
-            tab.removeAttribute("style");
-            tab.classList.remove("tab-highlight");
-            tab.removeEventListener("mousemove", mousemoveHandler);
+              link.addEventListener("mouseout", (event: MouseEvent) => {
+                tab.style.willChange = "";
+                tab.style.translate = "";
+                tab.removeAttribute("style");
+                tab.classList.remove("tab-highlight");
+                tab.removeEventListener("mousemove", mousemoveHandler);
+              });
+            });
           });
-        });
-      });
-    }
-      
-    } else {
-      // setMouseOver(false);
-      if (tab !== null) {
-        tab.classList.remove("tab-highlight");
-        // removeEventListener("mousemove", onTab);
+        }
+      } else {
+        // setMouseOver(false);
+        if (tab !== null) {
+          tab.classList.remove("tab-highlight");
+          // removeEventListener("mousemove", onTab);
+        }
       }
-    }
-  }, [mouseOver]);
+    },
+    [mouseOver]
+  );
 
   useEffect(() => {
-    onTab(mouseOver)
+    onTab(mouseOver);
   }, [mouseOver]);
 
   return (
     <>
       <div className="relative fw-icons flex flex-nowrap gap-px m-2.5">
-        <div ref={tabBarRef} aria-hidden="true" className="tab-bar submenu-tabs-highlight">
+        <div
+          ref={tabBarRef}
+          aria-hidden="true"
+          className="tab-bar submenu-tabs-highlight"
+        >
           <span ref={tabRef} id="tab" className="tab"></span>
         </div>
         <div ref={linksTargetRef} className="flex gap-px">
           <Link
-            
             href={`https://reactjs.org/`}
             className="link"
             onMouseOver={() => setMouseOver(true)}
@@ -87,7 +89,6 @@ const FrameworksBar = () => {
             <Image src={react} width={18} height={18} alt="react" />
           </Link>
           <Link
-            
             href={`https://nextjs.org/`}
             className="link"
             onMouseOver={() => setMouseOver(true)}
@@ -98,7 +99,6 @@ const FrameworksBar = () => {
             <Image src={nextjs} width={18} height={18} alt="nextjs" />
           </Link>
           <Link
-            
             href={`https://redux.js.org/`}
             className="link"
             onMouseOver={() => setMouseOver(true)}
@@ -109,7 +109,6 @@ const FrameworksBar = () => {
             <Image src={redux} width={18} height={18} alt="redux" />
           </Link>
           <Link
-            
             href={`https://www.apollographql.com/`}
             className="link"
             onMouseOver={() => setMouseOver(true)}
@@ -120,7 +119,6 @@ const FrameworksBar = () => {
             <Image src={apollo} width={18} height={18} alt="apollo" />
           </Link>
           <Link
-            
             href={`https://strapi.io/`}
             className="link"
             onMouseOver={() => setMouseOver(true)}

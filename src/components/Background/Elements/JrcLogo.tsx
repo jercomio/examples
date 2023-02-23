@@ -9,13 +9,10 @@ const JrcLogo = () => {
   const [visible, setVisible] = useState(false);
   const childRef = useRef<HTMLElement>(null);
 
-  // const child = document.getElementById("child");
-
   const child = childRef.current;
 
   const displayChild = useCallback((visible:boolean) => {
     if (child !== null) {
-      // const childNode = child.querySelector<HTMLElement>(".child");
       if (visible) {
         if (child !== null) {
           child.style.display = "block";
